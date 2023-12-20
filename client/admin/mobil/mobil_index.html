@@ -219,6 +219,10 @@
                 alert("Harus login dahulu");
                 window.location.href = './../auth/login.html';
             }
+
+            function formatNumberWithDots(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
     
             $.ajax({
                 type: "GET",
@@ -240,6 +244,8 @@
                         } else  {
                             statusMobil = 'Dipinjam';
                         }
+
+                        let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
     
                         dataBody += `
                             <tr>
@@ -248,7 +254,7 @@
                                 <td>${responseData[i].warna}</td>
                                 <td>${responseData[i].no_polisi}</td>
                                 <td>${responseData[i].jumlah_kursi}</td>
-                                <td>${responseData[i].harga_sewa}</td>
+                                <td>${formattedHargaSewa}</td>
                                 <td>${statusMobil}</td>
                                 <td>
                                     <a href="mobil_edit.html?id=${responseData[i].id}" class="btn btn-sm btn-warning btnEdit"><i class="fa fa-pen"></i></a>&nbsp

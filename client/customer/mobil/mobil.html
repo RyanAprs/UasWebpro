@@ -292,6 +292,10 @@
             window.location.href = './../auth/login.html';
         }
 
+        function formatNumberWithDots(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
         // Retrieve mobil data and populate the table
         $.ajax({
             type: "GET",
@@ -307,6 +311,7 @@
             success: function (responseData) {
                 let dataBody = ``;
                 for (let i = 0; i < responseData.length; i++) {
+                  let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
                     dataBody += `
                         <tr>
                             <td>${i + 1}</td>
@@ -314,7 +319,7 @@
                             <td>${responseData[i].warna}</td>
                             <td>${responseData[i].no_polisi}</td>
                             <td>${responseData[i].jumlah_kursi}</td>
-                            <td>${responseData[i].harga_sewa}</td>
+                            <td>${formattedHargaSewa}</td>
                             <td>
                                 <a href="#" data-id="${responseData[i].id}" class="btn btn-sm btn-warning btnModal">Sewa</a>&nbsp
                             </td>

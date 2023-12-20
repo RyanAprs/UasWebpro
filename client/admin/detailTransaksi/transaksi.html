@@ -215,11 +215,9 @@
                 window.location.href = './../auth/login.html';
             }
 
-            var role = $(this).data('role_id');
-                    if (role === 1) {
-                        alert("You do not have permission to access this page");
-                        return window.location.href = './404.html';
-                    }
+            function formatNumberWithDots(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
 
             $.ajax({
                 type: "GET",
@@ -235,6 +233,7 @@
                 success: function(responseData) {
                     let dataBody = ``;
                     for (let i = 0; i < responseData.length; i++) {
+                        let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
                         dataBody+=`
                             <tr>
                                 <td>${i+1}</td>
@@ -242,7 +241,7 @@
                                 <td>${responseData[i].nama_mobil}</td>
                                 <td>${responseData[i].tgl_pinjam}</td>
                                 <td>${responseData[i].tgl_kembali}</td>
-                                <td>${responseData[i].harga_sewa}</td>
+                                <td>${formattedHargaSewa}</td>
                                 <td>
                                     <a href="#" data-id="${responseData[i].id}" class="btn btn-sm btn-success mobilKembali">Dikembalikan</i></a>
                                 </td>
