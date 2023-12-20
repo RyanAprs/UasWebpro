@@ -26,12 +26,6 @@
   <link href="../css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../css/responsive.css" rel="stylesheet" />
-
-  <style>
-    .text-black {
-        color: black !important;
-    }
-</style>
 </head>
 
 <body>
@@ -63,6 +57,9 @@
                   <a class="nav-link" href="./mobil/mobil.html"> Mobil </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                  </li>
+                <li class="nav-item">
                   <a class="nav-link" href="#contactLink">Contact Us</a>
                 </li>
               </ul>
@@ -81,23 +78,20 @@
                         src="../images/client.png">
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"aria-labelledby="userDropdown">
-                  <a class="dropdown-item text-black" href="#" id="profile-link">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-                <a class="dropdown-item text-black" href="#" id="settings-link">
+                <a class="dropdown-item" href="#">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item text-black" id="logout" data-toggle="modal">
+                <a class="dropdown-item" id="logout"  data-toggle="modal" >
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    <span id="logout-text">Logout</span>
-                </a>
-                <a class="dropdown-item text-black" id="login" href="./auth/login.html" style="display: none;">
-                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    <span id="login-text">Login</span>
+                    Logout
                 </a>
             </div>
             </li>
@@ -109,115 +103,6 @@
       </div>
     </header>
     <!-- end header section -->
-
-    
-    <!-- slider section -->
-    <section class=" slider_section ">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6 ">
-                  <div class="detail_box">
-                    <h1>
-                      Sedang Mencari Mobil Yang Aman?
-                    </h1>
-                    <p>
-                      Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
-                    </p>
-                    <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
-                      </a>
-                      <a href="./mobil/mobil.html" class="btn-2">
-                        Lihat Mobil
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item ">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6 ">
-                  <div class="detail_box">
-                    <h1>
-                      Atau Mobil Yang Nyaman?
-                    </h1>
-                    <p>
-                      Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
-                    </p>
-                    <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
-                      </a>
-                      <a href="./mobil/mobil.html" class="btn-2">
-                        Lihat Mobil
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="carousel-item ">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6 ">
-                  <div class="detail_box">
-                    <h1>
-                      Atau Butuh Yang Terpercaya?
-                    </h1>
-                    <p>
-                      Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
-                    </p>
-                    <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
-                      </a>
-                      <a href="./mobil/mobil.html" class="btn-2">
-                        Lihat Mobil
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="../images/slider-img.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          
-        </div>
-        <div class="carousel_btn-container">
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </section>
-    <!-- end slider section -->
   </div>
   <!-- about section -->
 
@@ -452,6 +337,9 @@
                   <a class="" href="dashboard.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="">
+                  <a class="" href="transaksi/transaksi.html"> Transaksi</a>
+                </li>
+                <li class="">
                   <a class="" href="./mobil/mobil.html"> Mobil </a>
                 </li>
                 <li class="">
@@ -516,25 +404,16 @@
   <script type="text/javascript" src="../js/custom.js"></script>
   <script type="text/javascript" src="./handleLogout.js"></script>
 
-  <script>
-    $(document).ready(function () {
-        let token = localStorage.getItem('token');
-        const logoutLink = $('#logout');
-        const loginLink = $('#login');
-        const profileLink = $('#profile-link');
-        const settingsLink = $('#settings-link');
-
-        if (!token) {
-            logoutLink.hide();
-            loginLink.show();
-            profileLink.attr('href', '/login');  
-            settingsLink.attr('href', '/login');  
-        } else {
-            logoutLink.show();
-            loginLink.hide();
-        }
-    });
-</script>
+  <!-- <script>
+     $(document).ready(function(){
+            let token = localStorage.getItem('token');
+    
+            if (!token) {
+                alert("Harus login dahulu");
+                window.location.href = './auth/login.html';
+            }
+        })
+  </script> -->
 
 </body>
 

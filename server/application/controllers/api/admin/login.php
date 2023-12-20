@@ -59,7 +59,8 @@ class Login extends REST_Controller
                 'message' => 'Invalid email or password'
             );
             return $this->response($response, 401);
-        }
+        }else {
+            
     
         $token = $this->jwt->encode($email, $password);
     
@@ -71,6 +72,7 @@ class Login extends REST_Controller
         );
     
         return $this->response($response);
+        }
     }
     
     

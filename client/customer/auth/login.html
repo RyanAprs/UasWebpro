@@ -4,7 +4,7 @@
 <head>
     <!-- Your existing head content goes here -->
     <link rel="icon" type="image/svg+xml" href="../../images/car.png" />
-    <title>Login</title>
+    <title>Login Customer</title>
 
     <!-- Custom fonts for this template-->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,9 +47,6 @@
                                             Login
                                         </button>
                                     </form>
-                                    <div class="text-center mt-3">
-                                        <a class="small" href="register.html">Create an account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,10 +88,11 @@
                         cache: false,
                         success: function (response) {
                             if (response.status_code == 200) {
+                                alert("Login successful")
                                 localStorage.setItem('token', response.token);
                                 window.location.href = './../dashboard.html';
                             } else {
-                                alert(response.message);
+                                alert("Kesalahan Kresidensial");
                             }
                         }
                     });
