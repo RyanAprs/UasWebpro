@@ -81,5 +81,17 @@
             $this->db->where('id', $id);
             $this->db->update('mobil_table', $data); 
         }
+
+        function cek_noPolisi($no_polisi) {
+            try {
+                $this->db->where('no_polisi', $no_polisi);
+                $query = $this->db->get('mobil');
+                
+                return ($query->num_rows() > 0) ? false : true;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        
     }
 ?>

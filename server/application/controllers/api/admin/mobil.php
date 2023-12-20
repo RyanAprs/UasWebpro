@@ -94,6 +94,18 @@ class Mobil extends REST_Controller
         $harga_sewa = $this->input->post('harga_sewa');
         $status = 1; //tersedia
 
+        $mobilExist = $this->M_Mobil->cek_noPolisi($no_polisi);
+
+        if($mobilExist == false) {
+            $response = array(
+                'status_code' => 409,
+                'message' => 'Nomor polisi sudah digunakan',
+                'data' => null
+            );
+        
+            return $this->response($response);
+        }        
+
         $data = array(
             'nama_mobil' => $nama_mobil,
             'warna' => $warna,
@@ -141,13 +153,32 @@ class Mobil extends REST_Controller
             return $this->response($response);
         }
 
+        $nama_mobil = $this->put('nama_mobil');
+        $warna = $this->put('warna');
+        $no_polisi = $this->put('no_polisi');
+        $jumlah_kursi = $this->put('jumlah_kursi');
+        $harga_sewa = $this->put('harga_sewa');
+        $status = $this->put('status');
+
+        $mobilExist = $this->M_Mobil->cek_noPolisi($no_polisi, $id);
+
+        if ($mobilExist == false) {
+            $response = array(
+                'status_code' => 409,
+                'message' => 'Nomor polisi sudah digunakan',
+                'data' => null
+            );
+
+            return $this->response($response);
+        }
+
         $data = array(
-            'nama_mobil' => $this->put('nama_mobil'),
-            'warna' => $this->put('warna'),
-            'no_polisi' => $this->put('no_polisi'),
-            'jumlah_kursi' => $this->put('jumlah_kursi'),
-            'harga_sewa' => $this->put('harga_sewa'),
-            'status' => $this->put('status')
+            'nama_mobil' => $nama_mobil,
+            'warna' => $warna,
+            'no_polisi' => $no_polisi,
+            'jumlah_kursi' => $jumlah_kursi,
+            'harga_sewa' => $harga_sewa,
+            'status' => $status
         );
 
         $this->M_Mobil->update($id, $data);

@@ -98,8 +98,16 @@
                                     <input type="text" name="nama_mobil" id="nama_mobil" class="form-control" placeholder="Masukkan nama mobil" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="number">Warna Mobil</label>
-                                    <input type="text" name="warna" id="warna" class="form-control" placeholder="Masukkan warna mobil" required>
+                                    <label class="font-weight-bold" for="tahun">Warna</label>
+                                    <select name="warna" id="warna" class="form-control" required="required">
+                                        <option value="">- Pilih Warna</option>
+                                        <option value="Hitam">Hitam</option>
+                                        <option value="Putih">Putih</option>
+                                        <option value="Kuning">Kuning</option>
+                                        <option value="Merah">Merah</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Abu-abu">Abu-abu</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="number">Nomor Polisi</label>
@@ -244,6 +252,8 @@
                     } else if (data.status_code === 200) {
                         alert("Mobil updated successfully");
                         window.location.href = 'mobil_index.html';
+                    }else if(responseData.status_code == 409) {
+                        alert('Nomor polisi sudah digunakan')
                     } else {
                         console.error("Unexpected response:", data);
                         alert("Unexpected response from the server");
