@@ -114,6 +114,8 @@
     <!-- slider section -->
     <section class=" slider_section ">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="container">
@@ -127,8 +129,8 @@
                       Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
                     </p>
                     <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
+                      <a href="./auth/login.html" class="btn-1" id="loginCarousel1">
+                        <span>Login</span>
                       </a>
                       <a href="./mobil/mobil.html" class="btn-2">
                         Lihat Mobil
@@ -156,8 +158,8 @@
                       Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
                     </p>
                     <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
+                      <a href="./auth/login.html" class="btn-1" id="loginCarousel2" >
+                        <span>Login</span>
                       </a>
                       <a href="./mobil/mobil.html" class="btn-2">
                         Lihat Mobil
@@ -187,8 +189,8 @@
                       Anda berada di tempat yang tepat! AutoRent Express tempat yang aman dan terpercaya untuk kebutuhan sewa mobil anda.
                     </p>
                     <div class="btn-box">
-                      <a href="./auth/login.html" class="btn-1" id="login" style="display: none;">
-                        Login
+                      <a href="./auth/login.html" class="btn-1" id="loginCarousel3">
+                        <span>Login</span>
                       </a>
                       <a href="./mobil/mobil.html" class="btn-2">
                         Lihat Mobil
@@ -204,9 +206,9 @@
               </div>
             </div>
           </div>
-
-          
         </div>
+
+
         <div class="carousel_btn-container">
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="sr-only">Previous</span>
@@ -524,14 +526,27 @@
         const profileLink = $('#profile-link');
         const settingsLink = $('#settings-link');
 
+        function toggleLoginButton(carouselId, isVisible) {
+            const loginButton = $(`#loginCarousel${carouselId}`);
+            isVisible ? loginButton.show() : loginButton.hide();
+        }
+
+
+
         if (!token) {
             logoutLink.hide();
             loginLink.show();
             profileLink.attr('href', '/login');  
             settingsLink.attr('href', '/login');  
+            toggleLoginButton(1, true);
+            toggleLoginButton(2, true);
+            toggleLoginButton(3, true);
         } else {
             logoutLink.show();
             loginLink.hide();
+            toggleLoginButton(1, false);
+            toggleLoginButton(2, false);
+            toggleLoginButton(3, false);
         }
     });
 </script>
