@@ -160,7 +160,7 @@ class Transaksi extends REST_Controller
             return $this->response($error);
         }
     
-        $delete = $this->M_Transaksi->customerMengembalikanMobil($id);
+        $delete = $this->M_Transaksi->delete($id);
     
         if ($delete) {
             $response = array(

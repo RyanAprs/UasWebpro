@@ -6,6 +6,7 @@ class M_Transaksi extends CI_Model {
         $this->db->select('transaksi.id, transaksi.nama, mobil.nama_mobil, mobil.harga_sewa, transaksi.tgl_pinjam, transaksi.tgl_kembali ');
         $this->db->from('transaksi');
         $this->db->join('mobil', 'transaksi.id_mobil = mobil.id');
+        $this->db->where('transaksi.status_transaksi = 1');
 
         $query = $this->db->get();
         return $query->result_array();
@@ -45,6 +46,27 @@ class M_Transaksi extends CI_Model {
         if ($this->db->affected_rows() > 0) {
             $updateStatusQuery = "UPDATE mobil SET status = 1 WHERE id = $id_mobil";
             $this->db->query($updateStatusQuery);
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function customerMengembalikanMobil($id) {
+        $this->db->select('id_mobil, status_transaksi');
+        $this->db->where('id', $id);
+        $id_mobil = $this->db->get('transaksi')->row('id_mobil');
+
+        $this->db->where('id', $id);
+
+        $updateStatusTransaksi = "UPDATE transaksi SET status_transaksi = 2 WHERE id = $id";
+        return $this->db->query($updateStatusTransaksi);
+
+        if ($this->db->affected_rows() > 0) {
+            $updateStatusMobil = "UPDATE mobil SET status = 1 WHERE id = $id_mobil";
+            
+            $this->db->query($updateStatusMobil);
             
             return true;
         } else {
