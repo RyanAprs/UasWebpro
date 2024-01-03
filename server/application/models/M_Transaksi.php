@@ -57,15 +57,14 @@ class M_Transaksi extends CI_Model {
         $this->db->select('id_mobil, status_transaksi');
         $this->db->where('id', $id);
         $id_mobil = $this->db->get('transaksi')->row('id_mobil');
-
+    
         $this->db->where('id', $id);
-
+    
         $updateStatusTransaksi = "UPDATE transaksi SET status_transaksi = 2 WHERE id = $id";
-        return $this->db->query($updateStatusTransaksi);
-
+        $this->db->query($updateStatusTransaksi);
+    
         if ($this->db->affected_rows() > 0) {
             $updateStatusMobil = "UPDATE mobil SET status = 1 WHERE id = $id_mobil";
-            
             $this->db->query($updateStatusMobil);
             
             return true;

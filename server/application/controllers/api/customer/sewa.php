@@ -92,14 +92,6 @@ class Sewa extends REST_Controller
         
         $idMobil = $this->post('id_mobil');
 
-        if ($this->M_Mobil->mobilExist($idMobil)) {
-            $response = array(
-                'status_code' => 400,
-                'message' => 'Mobil sedang dipinjam atau tidak ditemukan.'
-            );
-            return $this->response($response);
-        }
-
         $updateStatusQuery = "UPDATE mobil SET status = 2 WHERE id = $idMobil";
         $this->db->query($updateStatusQuery);
 

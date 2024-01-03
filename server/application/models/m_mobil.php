@@ -24,14 +24,6 @@
             }
         }
 
-        function update($id, $data) {
-            $this->db->where('id', $id);
-            $result = $this->db->update('mobil', $data);
-        
-            return $result;
-        }
-        
-
         function insert($data) {
             $this->db->insert('mobil', $data);
             if($this->db->affected_rows()) {
@@ -59,14 +51,11 @@
 
         // VALIDASI MOBIL EXIST BUKAN BERDASARKAN ID ADA PADA TABEL TRANSAKSI TAPI STATUS PADA MOBILNYA
         function mobilExist($idMobil) {
-            
-            $queryTransaksi = "SELECT * FROM transaksi WHERE id_Mobil = $idMobil";
-            $queryMobil = "SELECT * FROM mobil WHERE id = $idMobil";
-        
-            $resultTransaksi = $this->db->query($queryTransaksi);
+    
+            $queryMobil = "SELECT * FROM mobil WHERE id = $idMobil AND status = 1";
             $resultMobil = $this->db->query($queryMobil);
         
-            $mobilExists = $resultTransaksi->num_rows() > 0 || $resultMobil->num_rows() === 0;
+            $mobilExists = $resultMobil->num_rows() > 0;
         
             if (!$mobilExists) {
                 $updateStatusQuery = "UPDATE mobil SET status = 2 WHERE id = $idMobil";
@@ -74,7 +63,7 @@
             }
         
             return $mobilExists;
-        }
+        }        
 
         public function mobilDiSewa($id) {
             $data = array(
