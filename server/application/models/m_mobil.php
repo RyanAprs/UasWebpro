@@ -57,7 +57,9 @@
             return $resultQuery->result();
         }
 
+        // VALIDASI MOBIL EXIST BUKAN BERDASARKAN ID ADA PADA TABEL TRANSAKSI TAPI STATUS PADA MOBILNYA
         function mobilExist($idMobil) {
+            
             $queryTransaksi = "SELECT * FROM transaksi WHERE id_Mobil = $idMobil";
             $queryMobil = "SELECT * FROM mobil WHERE id = $idMobil";
         

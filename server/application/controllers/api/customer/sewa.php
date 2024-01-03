@@ -110,6 +110,7 @@ class Sewa extends REST_Controller
             'tgl_pinjam' => $this->post('tgl_pinjam'),
             'tgl_kembali' => $this->post('tgl_kembali'),
             'id_mobil' => $this->post('id_mobil'),
+            'status_transaksi' => 1
         ];
 
         if ($this->M_Transaksi->customerSewaMobil($data)) {
