@@ -226,7 +226,7 @@
                 window.location.href = './../auth/login.html';
             }
 
-            function formatNumberWithDots(number) {
+            function tambahTitik(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
     
@@ -251,7 +251,7 @@
                             statusMobil = 'Dipinjam';
                         }
 
-                        let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
+                        let formattedHargaSewa = tambahTitik(responseData[i].harga_sewa);
     
                         dataBody += `
                             <tr>

@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-sm btn-success" id="btnSave"><i class="fa fa-eye mr-2"></i>Lihat</button>
+                                <button type="button" class="btn btn-sm btn-success" id="btnLihat"><i class="fa fa-eye mr-2"></i>Lihat</button>
                             </div>
                         </div>                        
                     </div>
@@ -176,6 +176,33 @@
 
                 </div>
                 <!-- /.container-fluid -->
+
+                <div class="container-fluid">
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-md-12" style="text-align: center;">
+                            <table class="table table-bordered" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">NO</th>
+                                        <th>NAMA PEMINJAM</th>
+                                        <th>MOBIL YANG DIPINJAM</th>
+                                        <th>TANGGAL PINJAM</th>
+                                        <th>TANGGAL KEMBALI</th>
+                                        <th>LAMA PINJAM</th>
+                                        <th>TOTAL BIAYA</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myBody">
+
+                                </tbody>
+                            </table>
+                        </div>                        
+                    </div>                  
+
+                </div>
 
             </div>
             <!-- End of Main Content -->
@@ -221,8 +248,66 @@
 
 
     <script>
+        $(document).ready(function() {
+            let token = localStorage.getItem('token');
         
-    </script>
+            if (!token) {
+                alert("Harus login dahulu");
+                window.location.href = './../auth/login.html';
+            }
+
+            function tambahTitik(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            $('#btnLihat').click(function() {
+                // Get the selected dates
+                var tanggalMulai = $('#tgl_mulai').val();
+                var tanggalSelesai = $('#tgl_selesai').val();
+        
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://127.0.0.1/uasWebpro/server/index.php/api/admin/laporan',
+                    headers: {
+                        "Authorization" : "Bearer " + token 
+                    },
+                    data: {tanggal_mulai: tanggalMulai, tanggal_selesai: tanggalSelesai},
+                    dataType: "json",
+                    cache: false,
+                    success: function(response) {
+                        
+                        if(response.status_code == 502) {
+                            alert(response.message);
+                        } else{
+                            alert("Berikut adalah daftar transaki pada tanggal ini");
+                            let dataBody = ``;
+                            for (let i = 0; i < response.length; i++) {
+                                let formattedBiaya = tambahTitik(response[i].total_biaya);
+
+                                dataBody+=`
+                                    <tr>
+                                        <td>${i+1}</td>
+                                        <td>${response[i].nama}</td>
+                                        <td>${response[i].nama_mobil}</td>
+                                        <td>${response[i].tanggal_pinjam}</td>
+                                        <td>${response[i].tanggal_kembali}</td>
+                                        <td>${response[i].lama_pinjam} hari</td>
+                                        <td>${formattedBiaya}</td>
+                                    </tr>`;
+                            }
+                            $("#myBody").empty();
+                            $("#myBody").append(dataBody);
+                        }
+        
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+        </script>
+        
     
 </body>
 
