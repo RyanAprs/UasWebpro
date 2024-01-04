@@ -111,7 +111,7 @@ class Profile extends REST_Controller
             'status_code' => 200
         );
 
-        return $this->response($response, 200);
+        return $this->response($response);
     }
     
 

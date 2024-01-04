@@ -92,7 +92,7 @@
                                 localStorage.setItem('token', response.token);
                                 window.location.href = './../dashboard.html';
                             } else {
-                                alert("Kesalahan Kresidensial");
+                                alert(response.message);
                             }
                         }
                     });
