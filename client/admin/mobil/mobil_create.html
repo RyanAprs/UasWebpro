@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/svg+xml" href="../../images/car.png" />
 
-    <title>WebPro 2 - Dashboard</title>
+    <title>AutorentExpress</title>
 
     <!-- Custom fonts for this template-->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +36,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">WebPro <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Autorent Express</div>
             </a>
 
             <!-- Divider -->
@@ -92,7 +93,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">ADMIN</span>
                                 <img class="img-profile rounded-circle"
                                     src="../../img/undraw_profile.svg">
                             </a>
@@ -133,8 +134,16 @@
                                 <input type="text" name="nama_mobil" id="nama_mobil" class="form-control" placeholder="Masukkan nama mobil" required>
                             </div>
                             <div class="form-group">
-                                <label for="number">Warna Mobil</label>
-                                <input type="text" name="warna" id="warna" class="form-control" placeholder="Masukkan warna mobil" required>
+                                <label class="font-weight-bold" for="tahun">Warna</label>
+                                <select name="warna" id="warna" class="form-control" required="required">
+                                    <option value="">- Pilih Warna</option>
+                                    <option value="Hitam">Hitam</option>
+                                    <option value="Putih">Putih</option>
+                                    <option value="Kuning">Kuning</option>
+                                    <option value="Merah">Merah</option>
+                                    <option value="Silver">Silver</option>
+                                    <option value="Abu-abu">Abu-abu</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="number">Nomor Polisi</label>
@@ -143,6 +152,10 @@
                             <div class="form-group">
                                 <label for="number">Jumlah Kursi</label>
                                 <input type="number" name="jumlah_kursi" id="jumlah_kursi" class="form-control" placeholder="Masukkan jumlah kursi mobil" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="number">Harga Sewa/Hari</label>
+                                <input type="text" name="harga_sewa" id="harga_sewa" class="form-control" placeholder="Masukkan Harga Sewa mobil perhari" required>
                             </div>
                             <div class="form-group">
                                 <a href="mobil_index.html" class="btn btn-sm btn-warning">Kembali</a>
@@ -194,10 +207,9 @@
     <!-- Page level custom scripts -->
     <script src="../../js/demo/chart-area-demo.js"></script>
     <script src="../../js/demo/chart-pie-demo.js"></script>
-    <script src="handleLogout.js"></script>
-
+    <script type="text/javascript" src="../handleLogout.js"></script>
     <script>
-        var base_url = "http://localhost/uasWebpro/server/api/";
+        var base_url = "http://localhost/uasWebpro/server/api/admin/";
         $(document).ready(function(){
             let token = localStorage.getItem('token');
 
@@ -218,13 +230,16 @@
                         warna: $("#warna").val(),
                         no_polisi: $("#no_polisi").val(),
                         jumlah_kursi: $("#jumlah_kursi").val(),
+                        harga_sewa: $("#harga_sewa").val(),
                     },
                     dataType: "json",
                     cache: false,
                     success:
-                        function(responseData) {
-                            if (responseData.status_code == 502){
+                        function(response) {
+                            if (response.status_code == 502){
                                 alert("Inputan tidak boleh kosong");
+                            } else if(response.status_code == 409) {
+                                alert('Nomor polisi sudah digunakan')
                             } else {
                                 window.location.href = 'mobil_index.html';
                                 alert("Mobil created successfully");

@@ -3,8 +3,9 @@
 
 <head>
     <!-- Your existing head content goes here -->
+    <link rel="icon" type="image/svg+xml" href="../../images/car.png" />
 
-    <title>Login</title>
+    <title>Login Admin</title>
 
     <!-- Custom fonts for this template-->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,34 +74,47 @@
         <script src="../../js/sb-admin-2.min.js"></script>
 
         <script>
-            var base_url = "http://localhost/uasWebpro/server/api/";
-
+            var base_url = "http://localhost/uasWebpro/server/api/admin/";
+        
             $(document).ready(function () {
         
-                $(document).on("click", '#btnLogin', function (event) {
-                    event.preventDefault();
-        
-                    $.ajax({
-                        type: 'POST',
-                        url: base_url + "login",
-                        data: {
-                            email: $("#email").val(),
-                            password: $("#password").val(),
-                        },
-                        dataType: "json",
-                        cache: false,
-                        success: function (response) {
-                            if (response.status_code == 200) {
-                                localStorage.setItem('token', response.token);
-                                window.location.href = './../dashboard.html';
-                            } else {
-                                alert(response.message);
+                $(document).ready(function () {
+                    $(document).on("click", '#btnLogin', function (event) {
+                        event.preventDefault();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: base_url + "login",
+                            data: {
+                                email: $("#email").val(),
+                                password: $("#password").val(),
+                            },
+                            dataType: "json",
+                            cache: false,
+                            success: function (response) {
+                                console.log(response);
+                                if (response.status_code == 200) {
+                                    localStorage.setItem('token', response.token);
+                                    displayUserInfo(response.user_data.username);
+                                    window.location.href = './../dashboard.html';
+                                } else if (response.status_code == 401) {
+                                    alert(response.message);
+                                } else {
+                                    alert(response.message);
+                                }
                             }
-                        }
+                        });
                     });
-                });
+
+                    function displayUserInfo(username) {
+                        alert("Hallo Admin , " + username + "!");
+                    }
+                    });
+
             });
+
         </script>
+        
 
 </body>
 

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>WebPro 2 - Dashboard</title>
+    <title>AutorentExpress</title>
 
     <!-- Custom fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">WebPro <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Autorent Express</div>
             </a>
 
             <!-- Divider -->
@@ -93,13 +93,21 @@
                             <!-- Earnings (Monthly) Card Example -->
                             <div class="col-md-12" style="text-align: justify;">
                                 <div class="form-group">
-                                    <label for="name">Nama Mobil</label>
                                     <input type="hidden" name="id" id="id" value="">
+                                    <label for="name">Nama Mobil</label>
                                     <input type="text" name="nama_mobil" id="nama_mobil" class="form-control" placeholder="Masukkan nama mobil" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="number">Warna Mobil</label>
-                                    <input type="text" name="warna" id="warna" class="form-control" placeholder="Masukkan warna mobil" required>
+                                    <label class="font-weight-bold" for="tahun">Warna</label>
+                                    <select name="warna" id="warna" class="form-control" required="required">
+                                        <option value="">- Pilih Warna</option>
+                                        <option value="Hitam">Hitam</option>
+                                        <option value="Putih">Putih</option>
+                                        <option value="Kuning">Kuning</option>
+                                        <option value="Merah">Merah</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Abu-abu">Abu-abu</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="number">Nomor Polisi</label>
@@ -108,6 +116,10 @@
                                 <div class="form-group">
                                     <label for="number">Jumlah Kursi</label>
                                     <input type="number" name="jumlah_kursi" id="jumlah_kursi" class="form-control" placeholder="Masukkan jumlah kursi mobil" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="number">Harga Sewa/Hari</label>
+                                    <input type="text" name="harga_sewa" id="harga_sewa" class="form-control" placeholder="Masukkan Harga Sewa mobil perhari" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold" for="tahun">Status</label>
@@ -157,27 +169,33 @@
 
     <!-- Core plugin JavaScript -->
     <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="handleLogout.js"></script>
+    <script type="text/javascript" src="../handleLogout.js"></script>
 
     <!-- Your custom script -->
     <script>
-        var base_url = "http://localhost/uasWebpro/server/index.php/api/mobil?id=";
+        var base_url = "http://localhost/uasWebpro/server/api/admin/mobil?id=";
+        
     
         // Get data by id
         $(document).ready(function () {
+            var role = $(this).data('role_id');
+            if (role === 1) {
+                alert("You do not have permission to access this page");
+                return window.location.href = '../404.html';
+            }
             let token = localStorage.getItem('token');
+            if (!token) {
+                alert("Harus login dahulu");
+                window.location.href = './../auth/login.html';
+                return;
+            }
+
             var mobilId = new URLSearchParams(window.location.search).get('id');
             document.getElementById('id').value = mobilId;
             
             if (!mobilId) {
                 console.log("Mobil ID not found");
                 window.location.href = 'mobil_index.html';
-                return;
-            }
-    
-            if (!token) {
-                alert("Harus login dahulu");
-                window.location.href = './../auth/login.html';
                 return;
             }
     
@@ -189,10 +207,12 @@
                 },
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     $("#nama_mobil").val(data.nama_mobil);
                     $("#warna").val(data.warna);
                     $("#no_polisi").val(data.no_polisi);
                     $("#jumlah_kursi").val(data.jumlah_kursi);
+                    $("#harga_sewa").val(data.harga_sewa);
                     $("#status").val(data.status);
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -220,22 +240,21 @@
             $.ajax({
                 contentType: 'application/x-www-form-urlencoded',
                 type: 'PUT',
-                url: "http://localhost/uasWebpro/server/index.php/api/mobil",
+                url: "http://localhost/uasWebpro/server/index.php/api/admin/mobil",
                 headers: {
                     "Authorization": "Bearer " + token
                 },
                 data:formData,
-                success: function (data) {
+                success: function (response) {
 
-                    if (data.status_code === 502) {
+                    if (response.status_code === 502) {
                         alert("Inputan tidak boleh kosong");
-                    } else if (data.status_code === 200) {
+                    } else if (response.status_code === 200) {
                         alert("Mobil updated successfully");
                         window.location.href = 'mobil_index.html';
-                    } else {
-                        console.error("Unexpected response:", data);
-                        alert("Unexpected response from the server");
-                    }
+                    }else if(response) {
+                        alert(response.message);
+                    } 
                 },
                 error: function (error) {
                     console.error("Ajax request failed:", error);
