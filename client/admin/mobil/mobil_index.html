@@ -298,9 +298,14 @@
                         dataType: 'json',
                         cache: false,
                         success: 
-                            function(responseData){
-                                alert("Mobil deleted successfully")
-                                location.reload();
+                            function(response){
+                                
+                                if(response.status_code == 200) {
+                                    alert("Mobil deleted successfully")
+                                    location.reload();
+                                } else {
+                                    alert(response.message);
+                                }
                             }
                     })
             }

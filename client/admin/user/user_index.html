@@ -285,21 +285,24 @@
                     var formData = { id: userId };
                     var dataXURL = $.param(formData);
 
-                    $.ajax( {
+                    $.ajax({
                         type: 'DELETE',
-                        url: base_url + "user?" + dataXURL,
+                        url: "http://127.0.0.1/uasWebpro/server/index.php/api/admin/user?" + dataXURL,
                         headers: {
-                            "Authorization" : "Bearer " + token 
+                            "Authorization": "Bearer " + token
                         },
-                        data: dataXURL,
                         dataType: 'json',
                         cache: false,
-                        success: 
-                            function(responseData){
-                                alert("user deleted successfully")
+                        success: function(response) {
+                            if (response.status_code == 200) {
+                                alert("user deleted successfully");
                                 location.reload();
+                            } else {
+                                alert(response.message);
                             }
-                    })
+                        }
+                    });
+
                 }
             })
     </script>

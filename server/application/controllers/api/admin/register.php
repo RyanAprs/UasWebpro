@@ -44,7 +44,7 @@ class Register extends REST_Controller
                 'status_code' => 502,
                 'message' => $error
             );
-            return $this->response($response,502);
+            return $this->response($response);
         }
         $username = $this->input->post('username');
         $email = $this->input->post('email');

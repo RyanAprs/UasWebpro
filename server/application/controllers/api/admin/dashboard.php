@@ -61,7 +61,7 @@ class Dashboard extends REST_Controller
             'total transaksi' => $transaksi,
         );
 
-        $this->response($data, 200);
+        $this->response($data);
     }
 
 }

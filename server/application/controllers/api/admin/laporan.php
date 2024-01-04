@@ -70,7 +70,7 @@ class Laporan extends REST_Controller
         } else {
             $data = $this->M_Laporan->get_by_id($id);
         }
-        $this->response($data, 200);
+        $this->response($data);
     }
 
     function index_post() {
@@ -87,7 +87,7 @@ class Laporan extends REST_Controller
             return $this->response($response);
         }
 
-        $this->response($data, 200);
+        $this->response($data);
     }
     
 }

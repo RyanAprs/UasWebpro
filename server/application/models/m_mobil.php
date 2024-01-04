@@ -32,6 +32,13 @@
                 return false;
             }
         }
+
+        function update($id, $data) {
+            $this->db->where('id', $id);
+            $result = $this->db->update('mobil', $data);
+
+            return $result;
+        }
         
         function delete($id) {
             $this->db->where('id', $id);
@@ -65,7 +72,7 @@
             return $mobilExists;
         }        
 
-        public function mobilDiSewa($id) {
+        function mobilDiSewa($id) {
             $data = array(
                 'status' => 2
             );
@@ -82,6 +89,16 @@
             } catch (Exception $e) {
                 return false;
             }
+        }
+
+        function mobilSedangDiPinjam() {
+            $this->db->select('mobil.status');
+            $this->db->from('mobil');
+            $this->db->where('mobil.status = 2');
+        
+            $query = $this->db->get();
+        
+            return $query->result();
         }
         
     }

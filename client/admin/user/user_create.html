@@ -225,11 +225,11 @@
                     dataType: "json",
                     cache: false,
                     success:
-                        function(data) {
-                            if (data.status_code == 502){
+                        function(response) {
+                            if (response.status_code == 502){
                                 alert("Inputan tidak boleh kosong");
-                            } else if (data.status_code == 409) {
-                                alert("Inputan user harus unique")
+                            } else if (response.status_code == 409) {
+                                alert(response.message);
                             }
                             else {
                                 window.location.href = 'user_index.html';

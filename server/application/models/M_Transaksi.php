@@ -73,7 +73,6 @@ class M_Transaksi extends CI_Model {
         }
     }
     
-
     function customerSewaMobil($data) {
         $this->db->insert('transaksi', $data);
         if($this->db->affected_rows()) {

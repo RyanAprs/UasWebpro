@@ -69,77 +69,6 @@ class Transaksi extends REST_Controller
         }
         $this->response($data, 200);
     }
-
-    function mobilExist($idMobil) {
-        $queryTransaksi = "SELECT * FROM transaksi WHERE id_Mobil = $idMobil";
-        $queryMobil = "SELECT * FROM mobil WHERE id = $idMobil";
-    
-        $resultTransaksi = $this->db->query($queryTransaksi);
-        $resultMobil = $this->db->query($queryMobil);
-    
-        $mobilExists = $resultTransaksi->num_rows() > 0 || $resultMobil->num_rows() === 0;
-    
-        if (!$mobilExists) {
-            $updateStatusQuery = "UPDATE mobil SET status = 2 WHERE id = $idMobil";
-            $this->db->query($updateStatusQuery);
-        }
-    
-        return $mobilExists;
-    }
-    
-    
-    public function index_post() {
-        if (!$this->is_login()) {
-            return;
-        }
-
-        $this->validate();
-
-        if ($this->form_validation->run() === FALSE) {
-            $error = $this->form_validation->error_array();
-            $response = array(
-                'status_code' => 502,
-                'message' => $error
-            );
-            return $this->response($response);
-        }
-
-        $idMobil = $this->post('id_mobil');
-
-        if ($this->mobilExist($idMobil)) {
-            $response = array(
-                'status_code' => 400,
-                'message' => 'Mobil sedang dipinjam atau tidak ditemukan.'
-            );
-            return $this->response($response);
-        }
-
-        $data = [
-            'id_pelanggan' => $this->post('id_pelanggan'),
-            'id_mobil' => $idMobil,
-            'harga' => $this->post('harga'),
-            'tgl_pinjam' => $this->post('tgl_pinjam'),
-            'tgl_kembali' => $this->post('tgl_kembali'),
-            'status_transaksi' => 1
-        ];
-
-        if ($this->M_Transaksi->insert($data)) {
-            $response = array(
-                'status_code' => 201,
-                'message' => 'success',
-                'data' => $data,
-            );
-
-            return $this->response($response);
-        } else {
-            $error = array(
-                'status_code' => 400,
-                'message' => 'gagal menambahkan data',
-            );
-
-            return $this->response($error);
-        }
-    }
     
     function index_delete() {
         if (!$this->is_login()) {
@@ -178,8 +107,6 @@ class Transaksi extends REST_Controller
     
         return $this->response($response);
     }
-    
-    
 
 }
 

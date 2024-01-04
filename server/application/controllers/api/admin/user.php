@@ -5,6 +5,7 @@ require APPPATH . '/libraries/REST_Controller.php';
 require_once FCPATH . 'vendor/autoload.php';
 
 use Restserver\Libraries\REST_Controller;
+
 class User extends REST_Controller
 {
     function __construct($config = 'rest'){
@@ -41,8 +42,6 @@ class User extends REST_Controller
         $this->form_validation->set_rules('email', 'Email','required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
     }
-
-    
 
     function is_login() {
         $authorizationHeader = $this->input->get_request_header('Authorization', true);
@@ -122,7 +121,7 @@ class User extends REST_Controller
         return $this->response($response);
     }
 
-    public function index_put(){
+    function index_put(){
         if (!$this->is_login()) {
             return;
         }
@@ -183,7 +182,7 @@ class User extends REST_Controller
     }
     
     function index_delete() {
-        $id = $this->delete('id');
+        $id = $this->input->get('id');        
         $check = $this->M_User->check_data($id);
         if($check == false) {
             $error = array(
@@ -203,8 +202,6 @@ class User extends REST_Controller
         );
         return $this->response($response);
     }
-
-
 
 }
 

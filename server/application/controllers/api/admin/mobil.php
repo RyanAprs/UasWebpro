@@ -100,7 +100,6 @@ class Mobil extends REST_Controller
             $response = array(
                 'status_code' => 409,
                 'message' => 'Nomor polisi sudah digunakan',
-                'data' => null
             );
         
             return $this->response($response);
@@ -180,6 +179,7 @@ class Mobil extends REST_Controller
             'harga_sewa' => $harga_sewa,
             'status' => $status
         );
+        
 
         $this->M_Mobil->update($id, $data);
         $newData = $this->M_Mobil->check_data($id);
@@ -196,28 +196,41 @@ class Mobil extends REST_Controller
         if (!$this->is_login()) {
             return;
         }
-
+    
         $id = $this->delete('id');
+    
         $check = $this->M_Mobil->check_data($id);
-        if($check == false) {
+        if (!$check) {
             $error = array(
                 'status' => 'fail',
                 'field' => 'id',
                 'message' => 'id is not found',
-                'status_code' => 502
+                'status_code' => 404
             );
-
-            return $this->response($error);
+    
+            return $this->response($error, 404);
         }
+    
+        $checkPeminjaman = $this->M_Mobil->mobilSedangDiPinjam();
+        if ($checkPeminjaman) {
+            $error = array(
+                'status_code' => 409,
+                'message' => 'Mobil Sedang di pinjam'
+            );
+    
+            return $this->response($error);
+        }        
+    
         $delete = $this->M_Mobil->delete($id);
         $response = array(
             'status' => 'success',
             'data' => $delete,
             'status_code' => 200
         );
+    
         return $this->response($response);
     }
-
+    
 }
 
 ?>

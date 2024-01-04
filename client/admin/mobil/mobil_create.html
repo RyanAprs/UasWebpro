@@ -235,10 +235,10 @@
                     dataType: "json",
                     cache: false,
                     success:
-                        function(responseData) {
-                            if (responseData.status_code == 502){
+                        function(response) {
+                            if (response.status_code == 502){
                                 alert("Inputan tidak boleh kosong");
-                            } else if(responseData.status_code == 409) {
+                            } else if(response.status_code == 409) {
                                 alert('Nomor polisi sudah digunakan')
                             } else {
                                 window.location.href = 'mobil_index.html';

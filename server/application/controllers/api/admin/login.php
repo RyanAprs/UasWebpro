@@ -45,7 +45,7 @@ class Login extends REST_Controller
                 'status_code' => 502,
                 'message' => $error
             );
-            return $this->response($response, 502);
+            return $this->response($response);
         }
     
         $email = $this->input->post('email');
@@ -53,25 +53,23 @@ class Login extends REST_Controller
     
         $user = $this->M_Auth->cek_login($email, $password);
     
-        if (!$user) {
+        if ($user == FALSE) {
             $response = array(
                 'status_code' => 401,
                 'message' => 'Invalid email or password'
             );
-            return $this->response($response, 401);
+            return $this->response($response);
         }else {
-            
-    
-        $token = $this->jwt->encode($email, $password);
-    
-        $response = array(
-            'status_code' => 200,
-            'message' => 'Login successful',
-            'user_data' => $user,
-            'token' => $token
-        );
-    
-        return $this->response($response);
+            $token = $this->jwt->encode($email, $password);
+        
+            $response = array(
+                'status_code' => 200,
+                'message' => 'Login successful',
+                'user_data' => $user,
+                'token' => $token
+            );
+        
+            return $this->response($response);
         }
     }
     

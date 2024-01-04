@@ -245,19 +245,16 @@
                     "Authorization": "Bearer " + token
                 },
                 data:formData,
-                success: function (data) {
+                success: function (response) {
 
-                    if (data.status_code === 502) {
+                    if (response.status_code === 502) {
                         alert("Inputan tidak boleh kosong");
-                    } else if (data.status_code === 200) {
+                    } else if (response.status_code === 200) {
                         alert("Mobil updated successfully");
                         window.location.href = 'mobil_index.html';
-                    }else if(responseData.status_code == 409) {
-                        alert('Nomor polisi sudah digunakan')
-                    } else {
-                        console.error("Unexpected response:", data);
-                        alert("Unexpected response from the server");
-                    }
+                    }else if(response) {
+                        alert(response.message);
+                    } 
                 },
                 error: function (error) {
                     console.error("Ajax request failed:", error);
