@@ -74,6 +74,10 @@ class Laporan extends REST_Controller
     }
 
     function index_post() {
+        if (!$this->is_login()) {
+            return;
+        }
+        
         $tanggal_mulai = $this->input->post('tanggal_mulai');
         $tanggal_selesai = $this->input->post('tanggal_selesai');
 

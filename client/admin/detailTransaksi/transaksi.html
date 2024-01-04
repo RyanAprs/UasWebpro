@@ -225,7 +225,7 @@
                 window.location.href = './../auth/login.html';
             }
 
-            function formatNumberWithDots(number) {
+            function tambahTitik(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
 
@@ -243,7 +243,7 @@
                 success: function(responseData) {
                     let dataBody = ``;
                     for (let i = 0; i < responseData.length; i++) {
-                        let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
+                        let formattedHargaSewa = tambahTitik(responseData[i].harga_sewa);
                         dataBody+=`
                             <tr>
                                 <td>${i+1}</td>
