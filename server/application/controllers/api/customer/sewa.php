@@ -107,7 +107,7 @@ class Sewa extends REST_Controller
 
         if ($this->M_Transaksi->customerSewaMobil($data)) {
             $response = array(
-                'status_code' => 201,
+                'status_code' => 200,
                 'message' => 'success',
                 'data' => $data,
             );

@@ -339,39 +339,49 @@
         });
 
         $(document).on('click', '#btnSewa', function () {
-            let mobilId = $('#selectedMobilId').val();
+        let mobilId = $('#selectedMobilId').val();
 
-            if (mobilId) {
-                postData(mobilId);
-                alert('Mobil berhasil disewa');
-            } else {
-                alert('Pilih mobil terlebih dahulu');
+        if (mobilId) {
+            let postData = {
+                nama: $("#nama").val(),
+                alamat: $("#alamat").val(),
+                no_hp: $("#no_hp").val(),
+                tgl_pinjam: $("#tgl_pinjam").val(),
+                tgl_kembali: $("#tgl_kembali").val(),
+                id_mobil: mobilId
+            };
+
+            PostData(postData);
+        } else {
+            alert('Pilih mobil terlebih dahulu');
+        }
+    });
+
+    function PostData(data) {
+        $.ajax({
+            type: "POST",
+            url: base_url + "sewa",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                handleResponse(response);
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
             }
         });
+    }
 
-        // Ngepost valuenya
-        function postData(mobilId) {
-            $.ajax({
-                type: "POST",
-                url: base_url + "sewa",
-                headers: {
-                    "Authorization": "Bearer " + token
-                },
-                data: {
-                    nama: $("#nama").val(),
-                    alamat: $("#alamat").val(),
-                    no_hp: $("#no_hp").val(),
-                    tgl_pinjam: $("#tgl_pinjam").val(),
-                    tgl_kembali: $("#tgl_kembali").val(),
-                    id_mobil: mobilId
-                },
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    location.reload();
-                }
-            });
-        }
+    function handleResponse(response) {
+        if (response.status_code === 502) {
+            alert('Inputan tidak boleh kosong');
+        } else {
+          alert('Mobil berhasil disewa');
+          location.reload();        }
+      }
     });
 </script>
 
