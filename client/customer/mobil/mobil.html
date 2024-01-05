@@ -296,7 +296,6 @@
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        // Retrieve mobil data and populate the table
         $.ajax({
             type: "GET",
             url: base_url + "mobil",
@@ -330,7 +329,7 @@
             }
         });
 
-        // Nampilin Modal ygy:v
+        // Nampilin Modal 
         $(document).on('click', '.btnModal', function () {
             let mobilId = $(this).data('id');
             $('#selectedMobilId').val(mobilId);
@@ -367,7 +366,11 @@
             data: data,
             dataType: "json",
             success: function (response) {
-                handleResponse(response);
+              if (response.status_code === 502) {
+                  alert('Inputan tidak boleh kosong');
+              } else {
+                alert('Mobil berhasil disewa');
+              }
             },
             error: function (xhr, status, error) {
                 console.error("AJAX request failed:", status, error);
@@ -380,7 +383,8 @@
             alert('Inputan tidak boleh kosong');
         } else {
           alert('Mobil berhasil disewa');
-          location.reload();        }
+          location.reload();        
+        }
       }
     });
 </script>
