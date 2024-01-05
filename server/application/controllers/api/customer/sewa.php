@@ -36,7 +36,7 @@ class Sewa extends REST_Controller
         $this->form_validation->set_rules('id_mobil', 'Id Mobil', 'required');
     }
 
-    public function options_get() {
+    function options_get() {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -61,7 +61,7 @@ class Sewa extends REST_Controller
     }
 
 
-    public function index_get() {
+    function index_get() {
         if (!$this->is_login()) {
             return;
         }
@@ -73,8 +73,7 @@ class Sewa extends REST_Controller
         $this->response($data, 200);
     }
     
-    
-    public function index_post() {
+    function index_post() {
         if (!$this->is_login()) {
             return;
         }
@@ -105,22 +104,14 @@ class Sewa extends REST_Controller
             'status_transaksi' => 1
         ];
 
-        if ($this->M_Transaksi->customerSewaMobil($data)) {
-            $response = array(
-                'status_code' => 200,
-                'message' => 'success',
-                'data' => $data,
-            );
-
-            return $this->response($response);
-        } else {
-            $error = array(
-                'status_code' => 400,
-                'message' => 'gagal menambahkan data',
-            );
-
-            return $this->response($error);
-        }
+        $this->M_Transaksi->customerSewaMobil($data);
+        $response = array(
+            'status_code' => 200,
+            'message' => 'Mobil Berhasil disewa',
+            'data' => $data,
+        );
+        
+        return $this->response($response);
     }
     
 
