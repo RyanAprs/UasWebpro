@@ -367,8 +367,7 @@
               dataType: "json",
               success: function (response) {
                 if (response.status_code === 502) {
-                  console.log(response.message);
-                    alert('Inputan tidak boleh kosong');
+                    alert(response.message);
                 } else {
                     alert('Mobil berhasil disewa');
                 }

@@ -205,12 +205,6 @@
                 window.location.href = './auth/login.html';
             }
 
-            var role = $(this).data('role_id');
-            if (role === 1) {
-                alert("You do not have permission to access this page");
-                return window.location.href = './404.html';
-            }
-    
             $.ajax({
                 type: "GET",
                 url: base_url + "dashboard",
