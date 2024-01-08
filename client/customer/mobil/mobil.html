@@ -292,7 +292,7 @@
             window.location.href = './../auth/login.html';
         }
 
-        function formatNumberWithDots(number) {
+        function tambahTitik(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
@@ -307,20 +307,20 @@
             },
             dataType: "json",
             cache: false,
-            success: function (responseData) {
+            success: function (response) {
                 let dataBody = ``;
-                for (let i = 0; i < responseData.length; i++) {
-                  let formattedHargaSewa = formatNumberWithDots(responseData[i].harga_sewa);
+                for (let i = 0; i < response.length; i++) {
+                  let formattedHargaSewa = tambahTitik(response[i].harga_sewa);
                     dataBody += `
                         <tr>
                             <td>${i + 1}</td>
-                            <td>${responseData[i].nama_mobil}</td>
-                            <td>${responseData[i].warna}</td>
-                            <td>${responseData[i].no_polisi}</td>
-                            <td>${responseData[i].jumlah_kursi}</td>
+                            <td>${response[i].nama_mobil}</td>
+                            <td>${response[i].warna}</td>
+                            <td>${response[i].no_polisi}</td>
+                            <td>${response[i].jumlah_kursi}</td>
                             <td>${formattedHargaSewa}</td>
                             <td>
-                                <a href="#" data-id="${responseData[i].id}" class="btn btn-sm btn-warning btnModal">Sewa</a>&nbsp
+                                <a href="#" data-id="${response[i].id}" class="btn btn-sm btn-warning btnModal">Sewa</a>&nbsp
                             </td>
                         </tr>`;
                 }
@@ -338,54 +338,46 @@
         });
 
         $(document).on('click', '#btnSewa', function () {
-        let mobilId = $('#selectedMobilId').val();
+          let mobilId = $('#selectedMobilId').val();
 
-        if (mobilId) {
-            let postData = {
-                nama: $("#nama").val(),
-                alamat: $("#alamat").val(),
-                no_hp: $("#no_hp").val(),
-                tgl_pinjam: $("#tgl_pinjam").val(),
-                tgl_kembali: $("#tgl_kembali").val(),
-                id_mobil: mobilId
-            };
+          if (mobilId) {
+              let postData = {
+                  nama: $("#nama").val(),
+                  alamat: $("#alamat").val(),
+                  no_hp: $("#no_hp").val(),
+                  tgl_pinjam: $("#tgl_pinjam").val(),
+                  tgl_kembali: $("#tgl_kembali").val(),
+                  id_mobil: mobilId
+              };
 
-            PostData(postData);
-        } else {
-            alert('Pilih mobil terlebih dahulu');
-        }
-    });
+              PostData(postData);
+          } else {
+              alert('Pilih mobil terlebih dahulu');
+          }
+      });
 
-    function PostData(data) {
-        $.ajax({
-            type: "POST",
-            url: base_url + "sewa",
-            headers: {
-                "Authorization": "Bearer " + token
-            },
-            data: data,
-            dataType: "json",
-            success: function (response) {
-              if (response.status_code === 502) {
-                  alert('Inputan tidak boleh kosong');
-              } else {
-                alert('Mobil berhasil disewa');
+      function PostData(data) {
+          $.ajax({
+              type: "POST",
+              url: base_url + "sewa",
+              headers: {
+                  "Authorization": "Bearer " + token
+              },
+              data: data,
+              dataType: "json",
+              success: function (response) {
+                if (response.status_code === 502) {
+                    alert(response.message);
+                } else {
+                    alert('Mobil berhasil disewa');
+                }
+              },
+              error: function (xhr, status, error) {
+                  console.error("AJAX request failed:", status, error);
               }
-            },
-            error: function (xhr, status, error) {
-                console.error("AJAX request failed:", status, error);
-            }
-        });
-    }
-
-    function handleResponse(response) {
-        if (response.status_code === 502) {
-            alert('Inputan tidak boleh kosong');
-        } else {
-          alert('Mobil berhasil disewa');
-          location.reload();        
-        }
+          });
       }
+
     });
 </script>
 

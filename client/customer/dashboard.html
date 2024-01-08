@@ -77,8 +77,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">CUSTOMER</span>
-                    <img class="img-profile rounded-circle"
-                        src="../images/client.png">
+                    <img id="img-profile" class="img-profile rounded-circle"
+                        src="../images/client.png"
+                    >
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"aria-labelledby="userDropdown">
@@ -525,6 +526,7 @@
         const loginLink = $('#login');
         const profileLink = $('#profile-link');
         const settingsLink = $('#settings-link');
+        const imgProfile = $('#img-profile');
 
         function toggleLoginButton(carouselId, isVisible) {
             const loginButton = $(`#loginCarousel${carouselId}`);
@@ -534,6 +536,7 @@
         if (!token) {
             logoutLink.hide();
             loginLink.show();
+            imgProfile.hide();
             profileLink.attr('href', '/login');  
             settingsLink.attr('href', '/login');  
             toggleLoginButton(1, true);
@@ -542,6 +545,7 @@
         } else {
             logoutLink.show();
             loginLink.hide();
+            imgProfile.show();
             toggleLoginButton(1, false);
             toggleLoginButton(2, false);
             toggleLoginButton(3, false);

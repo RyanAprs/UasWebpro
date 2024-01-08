@@ -11,7 +11,7 @@
                 } else {
                     return false;
                 }
-            }
+        }
 
             function check_data($id) {
                 $this->db->where('id', $id);
@@ -25,20 +25,13 @@
             }
 
         
-            function getProfile($id) {
-                $this->db->select('user.id, user.username, user.email, user.password');
+            function get_role($email) {
+                $this->db->select('user.role_id');
                 $this->db->from('user');
-                $this->db->where('user.id', $id);
+                $this->db->where('user.email', $email);
             
                 $query = $this->db->get();
                 return $query->result();
-            }
-
-            function updateProfile($id, $data) {
-                $this->db->where('id', $id);
-                $result = $this->db->update('user', $data);
-            
-                return $result;
             }
 
             function insert($data) {

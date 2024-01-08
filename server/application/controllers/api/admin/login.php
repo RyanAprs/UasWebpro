@@ -36,8 +36,7 @@ class Login extends REST_Controller
         $this->form_validation->set_rules('password', 'Password', 'required');
     }
 
-    function index_post()
-    {
+    function index_post(){
         $this->validate();
         if ($this->form_validation->run() === FALSE) {
             $error = $this->form_validation->error_array();
@@ -60,20 +59,21 @@ class Login extends REST_Controller
             );
             return $this->response($response);
         }else {
+            $get_role = $this->M_Auth->get_role($email);
+
             $token = $this->jwt->encode($email, $password);
         
             $response = array(
                 'status_code' => 200,
                 'message' => 'Login successful',
                 'user_data' => $user,
+                'role' => $get_role,
                 'token' => $token
             );
         
             return $this->response($response);
         }
     }
-    
-    
 
 }
 

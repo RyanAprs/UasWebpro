@@ -54,11 +54,13 @@ class Dashboard extends REST_Controller
         $user=$this->M_Dashboard->getCountUser();
         $mobil=$this->M_Dashboard->getCountMobil();
         $transaksi=$this->M_Dashboard->getCountTransaksi();
+        $laporan = $this->M_Dashboard->getCountLaporan();
 
         $data = array(
             'total user' => $user,
             'total mobil' => $mobil,
             'total transaksi' => $transaksi,
+            'total laporan' => $laporan,
         );
 
         $this->response($data);
