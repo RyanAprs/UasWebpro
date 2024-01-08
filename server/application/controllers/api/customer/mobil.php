@@ -60,31 +60,31 @@ class Mobil extends REST_Controller
         $this->response($data, 200);
     }
 
-    function index_delete() {
-        if (!$this->is_login()) {
-            return;
-        }
+    // function index_delete() {
+    //     if (!$this->is_login()) {
+    //         return;
+    //     }
 
-        $id = $this->delete('id');
-        $check = $this->M_Mobil->check_data($id);
-        if($check == false) {
-            $error = array(
-                'status' => 'fail',
-                'field' => 'id',
-                'message' => 'id is not found',
-                'status_code' => 502
-            );
+    //     $id = $this->delete('id');
+    //     $check = $this->M_Mobil->check_data($id);
+    //     if($check == false) {
+    //         $error = array(
+    //             'status' => 'fail',
+    //             'field' => 'id',
+    //             'message' => 'id is not found',
+    //             'status_code' => 502
+    //         );
 
-            return $this->response($error);
-        }
-        $delete = $this->M_Mobil->delete($id);
-        $response = array(
-            'status' => 'success',
-            'data' => $delete,
-            'status_code' => 200
-        );
-        return $this->response($response);
-    }
+    //         return $this->response($error);
+    //     }
+    //     $delete = $this->M_Mobil->delete($id);
+    //     $response = array(
+    //         'status' => 'success',
+    //         'data' => $delete,
+    //         'status_code' => 200
+    //     );
+    //     return $this->response($response);
+    // }
 
 }
 
